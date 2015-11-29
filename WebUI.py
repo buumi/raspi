@@ -26,7 +26,7 @@ class WebUI:
         return sivu
 
     def kayttajatunnuksen_pyynto(self, kohdesivu):
-        return "<form action='" + kohdesivu + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
+        return "<form action='/" + kohdesivu + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
 
     def valoanturin_ohjaus_paalle(self):
         username = request.forms.get('kayttajatunnus')
@@ -34,7 +34,6 @@ class WebUI:
         if (self.tarkista_tunnus(username, password)):
             self.valoanturi.aseta_ohjauksen_tila(True)
             redirect("http://" + self.ip + ":8080")
-
 
 
     def valoanturin_ohjaus_pois_paalta(self):
