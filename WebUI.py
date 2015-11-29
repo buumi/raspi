@@ -1,5 +1,5 @@
 import time
-from bottle import route, run
+from bottle import route, run, redirect
 
 class WebUI:
     def __init__(self, ip, lampomittari, valoanturi):
@@ -22,7 +22,7 @@ class WebUI:
 
     def valoanturin_ohjaus(self, tila):
         self.valoanturi.aseta_ohjauksen_tila(tila)
-        return '<script language="javascript">window.location.href = "http://' + self.ip + ':8080"</script>'
+        redirect("http://" + self.ip + ":8080")
 
     def tieto_sivu(self):
         return "Tasta tulee tietosivu"
