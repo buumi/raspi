@@ -10,7 +10,7 @@ class WebUI:
         self._route()
 
     def _route(self):
-        route('/', method="GET", callback=self.index)
+        route('/<toiminto>', method="GET", callback=self.index)
         route('/tunnistautuminen/<kohdesivu>', method="GET", callback=self.kayttajatunnuksen_pyynto)
         route('/valoanturin_ohjaus_True', method="POST", callback=self.valoanturin_ohjaus_paalle)
         route('/valoanturin_ohjaus_False', method="POST", callback=self.valoanturin_ohjaus_pois_paalta)
@@ -19,9 +19,14 @@ class WebUI:
     def kaynnista(self):
         run(host=self.ip, port=8080)
 
-    def index(self):
+    def index(self, toiminto=""):
+        sivu = ""
+
+        if toiminto == "tunnistautuminen_epaonnistui":
+            sivu += "Kayttajatunnus tai salasana oli vaarin!" + "<br><br>"
+
         uusi_tila_valoanturi = not self.valoanturi.anna_ohjaus_tila()
-        sivu = "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturin_ohjaus_" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
+        sivu += "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturin_ohjaus_" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + "<br>"
         return sivu
 
@@ -33,7 +38,8 @@ class WebUI:
         password = request.forms.get('salasana')
         if (self.tarkista_tunnus(username, password)):
             self.valoanturi.aseta_ohjauksen_tila(True)
-        redirect("http://" + self.ip + ":8080")
+            redirect("http://" + self.ip + ":8080")
+        redirect("http://" + self.ip + ":8080/tunnistautuminen_epaonnistui")
 
 
     def valoanturin_ohjaus_pois_paalta(self):
@@ -41,7 +47,8 @@ class WebUI:
         password = request.forms.get('salasana')
         if (self.tarkista_tunnus(username, password)):
             self.valoanturi.aseta_ohjauksen_tila(False)
-        redirect("http://" + self.ip + ":8080")
+            redirect("http://" + self.ip + ":8080")
+        redirect("http://" + self.ip + ":8080/tunnistautuminen_epaonnistui")
 
     def tieto_sivu(self):
         return "Tasta tulee tietosivu"
