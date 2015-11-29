@@ -11,7 +11,7 @@ class WebUI:
 
     def _route(self):
         route('/', method="GET", callback=self.index)
-        route('/hallintasivu', method="GET", callback=self.hallinta_sivu())
+        route('/hallintasivu', method="GET", callback=self.hallinta_sivu)
 
     def kaynnista(self):
         run(host=self.ip, port=8080)
