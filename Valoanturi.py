@@ -72,6 +72,9 @@ class Valoanturi:
         self._discharge()
         return self._charge_time()
 
+    def anna_ohjaus_tila(self):
+        return self.ohjaus
+
     def anna_valoisuus(self):
         return self.valoisuus
 

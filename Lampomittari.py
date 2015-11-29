@@ -46,6 +46,9 @@ class Lampomittari:
 
         self.lampotila = lampotila
 
+    def anna_ohjaus_tila(self):
+        return self.ohjaus
+
     def anna_lampotila(self):
         return self.lampotila
 
