@@ -21,7 +21,7 @@ class WebUI:
 
     def index(self):
         uusi_tila_valoanturi = not self.valoanturi.anna_ohjaus_tila()
-        sivu = "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila() + " <a href='tunnistautuminen/valoanturin_ohjaus_" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>")
+        sivu = "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturin_ohjaus_" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila() + "<br>")
 
     def kayttajatunnuksen_pyynto(self, kohdeosoite):
