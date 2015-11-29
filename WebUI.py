@@ -11,9 +11,13 @@ class WebUI:
 
     def _route(self):
         route('/', method="GET", callback=self.index)
+        route('/hallintasivu', method="GET", callback=self.hallinta_sivu())
 
     def kaynnista(self):
         run(host=self.ip, port=8080)
 
     def index(self):
         return "Hello World!"
+
+    def hallinta_sivu(self):
+        return "Tasta tulee hallintasivu"
