@@ -12,6 +12,7 @@ class WebUI:
     def _route(self):
         route('/', method="GET", callback=self.index)
         route('/hallintasivu', method="GET", callback=self.hallinta_sivu)
+        route('/tiedot', method="GET", callback=self.tieto_sivu)
 
     def kaynnista(self):
         run(host=self.ip, port=8080)
@@ -21,3 +22,6 @@ class WebUI:
 
     def hallinta_sivu(self):
         return "Tasta tulee hallintasivu"
+
+    def tieto_sivu(self):
+        return "Tasta tulee tietosivu"
