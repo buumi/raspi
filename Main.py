@@ -25,7 +25,7 @@ def main():
     lampomittari = Lampomittari(lampomittari_path, lampomittarin_laite, 24)
     valoanturi = Valoanturi(18, 23, valoanturin_laite, 6)
 
-    web_ui = WebUI(ip, lampomittari, valoanturin_laite)
+    web_ui = WebUI(ip, lampomittari, valoanturi)
     thread.start_new_thread(web_ui.kaynnista, ())
 
     while True:
