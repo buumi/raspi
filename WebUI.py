@@ -1,5 +1,5 @@
 import time
-from bottle import Bottle
+from bottle import route, run
 
 class WebUI:
     def __init__(self, ip, lampomittari, valoanturi):
@@ -7,14 +7,13 @@ class WebUI:
         self.lampomittari = lampomittari
         self.valoanturi = valoanturi
 
-        self.app = Bottle()
         self._route()
 
     def _route(self):
-        self.app.route('/', method="GET", callback=self.index)
+        route('/', method="GET", callback=self.index)
 
     def kaynnista(self):
-        self.app.run(host=self.ip, port=8080)
+        run(host=self.ip, port=8080)
 
     def index(self):
         return "Hello World!"
