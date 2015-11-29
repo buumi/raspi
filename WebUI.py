@@ -10,6 +10,7 @@ class WebUI:
         self._route()
 
     def _route(self):
+        route('/', method="GET", callback=self.index)
         route('/<toiminto>', method="GET", callback=self.index)
         route('/tunnistautuminen/<kohdesivu>', method="GET", callback=self.kayttajatunnuksen_pyynto)
         route('/valoanturin_ohjaus_True', method="POST", callback=self.valoanturin_ohjaus_paalle)
