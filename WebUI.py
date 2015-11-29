@@ -25,8 +25,8 @@ class WebUI:
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + "<br>"
         return sivu
 
-    def kayttajatunnuksen_pyynto(self, kohdeosoite):
-        return "<form action='" + kohdeosoite + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password'> name='salasana'><br><input type='submit' value='Jatka'>"
+    def kayttajatunnuksen_pyynto(self, kohdesivu):
+        return "<form action='" + kohdesivu + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password'> name='salasana'><br><input type='submit' value='Jatka'>"
 
     def valoanturin_ohjaus_paalle(self):
         self.valoanturi.aseta_ohjauksen_tila(True)
