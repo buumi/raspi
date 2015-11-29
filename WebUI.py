@@ -18,8 +18,7 @@ class WebUI:
         run(host=self.ip, port=8080)
 
     def index(self):
-        return "Valoanturi ohjaa laitetta: " + self.valoanturi.anna_ohjaus_tila()
-        return "Lampomittari ohjaa laitetta: " + self.lampomittari.anna_ohjaus_tila()
+        return "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila())
 
     def valoanturin_ohjaus(self, tila):
         self.valoanturi.aseta_ohjauksen_tila(tila)
