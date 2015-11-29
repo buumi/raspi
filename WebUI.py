@@ -22,7 +22,7 @@ class WebUI:
 
     def valoanturin_ohjaus(self, tila):
         self.valoanturi.aseta_ohjauksen_tila(tila)
-        return '<script language="javascript">window.location.href = "' + self.ip + ':8080"</script>'
+        return '<script language="javascript">window.location.href = "http://' + self.ip + ':8080"</script>'
 
     def tieto_sivu(self):
         return "Tasta tulee tietosivu"
