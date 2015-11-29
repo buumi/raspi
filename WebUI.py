@@ -33,11 +33,14 @@ class WebUI:
         password = request.forms.get('salasana')
         if (self.tarkista_tunnus(username, password)):
             self.valoanturi.aseta_ohjauksen_tila(True)
-            redirect("http://" + self.ip + ":8080")
+        redirect("http://" + self.ip + ":8080")
 
 
     def valoanturin_ohjaus_pois_paalta(self):
-        self.valoanturi.aseta_ohjauksen_tila(False)
+        username = request.forms.get('kayttajatunnus')
+        password = request.forms.get('salasana')
+        if (self.tarkista_tunnus(username, password)):
+            self.valoanturi.aseta_ohjauksen_tila(False)
         redirect("http://" + self.ip + ":8080")
 
     def tieto_sivu(self):
