@@ -11,7 +11,7 @@ class WebUI:
         self._route()
 
     def _route(self):
-        self._app.route('/', method="GET", callback=self.index)
+        self.app.route('/', method="GET", callback=self.index)
 
     def kaynnista(self):
         self.app.run(host=self.ip, port=8080)
