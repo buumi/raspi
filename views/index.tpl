@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../tyylit.css">
+        <link rel="stylesheet" type="text/css" href="http://buumi.kapsi.fi/koulu1/tyylit.css">
         <title>Automaatiohallinta</title>
     </head>
 
