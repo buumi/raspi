@@ -1,12 +1,13 @@
 import time
 from bottle import route, run, redirect, request, template, TEMPLATE_PATH
+import os
 
 class WebUI:
     def __init__(self, ip, lampomittari, valoanturi):
         self.ip = ip
         self.lampomittari = lampomittari
         self.valoanturi = valoanturi
-        TEMPLATE_PATH.insert(0, 'views')
+        TEMPLATE_PATH.insert(0, os.path.realpath(__file__) + "/views")
         self._route()
 
     def _route(self):
