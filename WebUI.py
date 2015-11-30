@@ -82,7 +82,7 @@ class WebUI:
             return False
 
     def tieto_sivu(self):
-        return template("index", "Tasta tulee tietosivu")
+        return template("index", content="Tasta tulee tietosivu")
 
     def onnistuuko_tunnistautuminen(self, kayttajatunnus, salasana):
         if (kayttajatunnus == "Admin" and salasana=="1234"):
