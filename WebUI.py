@@ -1,5 +1,5 @@
 import time
-from bottle import route, run, redirect, request
+from bottle import route, run, redirect, request, template
 
 class WebUI:
     def __init__(self, ip, lampomittari, valoanturi):
@@ -12,7 +12,7 @@ class WebUI:
     def _route(self):
         route('/', method="GET", callback=self.index)
         route('/<toiminto>', method="GET", callback=self.index)
-        route('/tunnistautuminen/<laite>/<toiminto>', method="GET", callback=self.kayttajatunnuksen_pyynto)
+        route('/tunnistautuminen/<laite>/<toiminto>', method="GET", callback=self.tunnistautuminen)
         route('/<laite>/<toiminto>', method="POST", callback=self.aseta_anturin_ohjaus)
         route('/tiedot', method="GET", callback=self.tieto_sivu)
 
@@ -30,32 +30,52 @@ class WebUI:
 
         sivu += "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
-        return sivu
+        return template("index", content=sivu)
 
-    def kayttajatunnuksen_pyynto(self, laite, toiminto):
+    def tunnistautuminen(self, laite, toiminto):
         return "<form action='/" + laite + "/" + toiminto + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
 
+
+    '''
+        Menemalla osoitteeseen RASPBERRYN_IP/<LAITE>/<TOIMINTO> voi ohjata Raspberryn toimintaa
+        <LAITE> mahdolliset arvot ovat lampomittari ja valoanturi
+        <TOIMINTO> mahdolliset arvot ovat True, False tai Float-arvo
+        True arvolla <LAITE> alkaa ohjaamaan siihen liitettya laitetta
+        False arvolla <LAITE> lopettaa siihen liitetyn laitteen ohjaamisen
+        Float arvolla asetetaan ohjattavan laitteen kaynnistymisen raja-arvo
+
+        HUOM: Metodi tarkistaa, etta POST-taulukko sisaltaa oikean kayttajatunnuksen ja salasanan.
+        Tanne metodiin onkin tarkoitus tulla metodin kayttajatunnuksen pyynto kautta!
+    '''
     def aseta_anturin_ohjaus(self, laite, toiminto):
-        if laite == "lampomittari":
-            laite = self.lampomittari
-        elif laite == "valoanturi":
-            laite = self.valoanturi
-        else:
-            redirect("http://" + self.ip + ":8080")
-
-        if toiminto == "True":
-            toiminto = True
-        elif toiminto == "False":
-            toiminto = False
-        else:
-            redirect("http://" + self.ip + ":8080")
-
         username = request.forms.get('kayttajatunnus')
         password = request.forms.get('salasana')
         if (self.onnistuuko_tunnistautuminen(username, password)):
-            laite.aseta_ohjauksen_tila(toiminto)
+            if laite == "lampomittari":
+                laite = self.lampomittari
+            elif laite == "valoanturi":
+                laite = self.valoanturi
+            else:
+                # Jos tuntematon laite, ohjaa etusivulle
+                redirect("http://" + self.ip + ":8080")
+
+            if toiminto == "True":
+                laite.aseta_ohjauksen_tila(True)
+            elif toiminto == "False":
+                laite.aseta_ohjauksen_tila(False)
+            elif self.is_number(toiminto):
+                laite.aseta_raja_arvo(float(toiminto))
+
             redirect("http://" + self.ip + ":8080")
-        redirect("http://" + self.ip + ":8080/tunnistautuminen_epaonnistui")
+        else:
+            redirect("http://" + self.ip + ":8080/tunnistautuminen_epaonnistui")
+
+    def is_number(s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
 
     def tieto_sivu(self):
         return "Tasta tulee tietosivu"

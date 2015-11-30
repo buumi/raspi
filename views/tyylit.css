@@ -1,0 +1,37 @@
+
+body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1024px;
+    background-color: #F7F7F7;
+}
+
+.navigation {
+    font-size: small;
+    background-color: lightgrey;
+    vertical-align: top;
+    padding: 5px;
+    width: 150px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+.navigation td {
+    font-size: small;
+}
+
+.sivu {
+    border: 1px solid black;
+    padding: 10px;
+    vertical-align: top;
+    width: 874px;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
