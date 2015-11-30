@@ -31,8 +31,8 @@ class WebUI:
         teksti_valoanturi = "Paalla" if uusi_tila_valoanturi == False else "Pois paalta"
         teksti_lampomittari = "Paalla" if uusi_tila_lampomittari == False else "Pois paalta"
 
-        sivu += "Valoanturi ohjaa laitetta: " + teksti_valoanturi + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
-        sivu += "Lampomittari ohjaa laitetta: " + teksti_lampomittari + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
+        sivu += "<table><tr><td>Valoanturi ohjaa laitetta: </td><td>" + teksti_valoanturi + " </td><td><a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a></td></tr>"
+        sivu += "<tr><td>Lampomittari ohjaa laitetta: </td><td>" + teksti_lampomittari + "</td><td><a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a></td></tr></table>"
         return template("index", content=sivu)
 
     def tunnistautuminen(self, laite, toiminto):
