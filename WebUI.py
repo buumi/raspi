@@ -1,5 +1,5 @@
 import time
-from bottle import route, run, redirect, request, template, SimpleTemplate
+from bottle import route, run, redirect, request, template
 import os
 
 class WebUI:
@@ -7,7 +7,6 @@ class WebUI:
         self.ip = ip
         self.lampomittari = lampomittari
         self.valoanturi = valoanturi
-        TEMPLATE_PATH.insert(0, os.path.realpath(__file__) + "/views")
         self._route()
 
     def _route(self):
@@ -21,8 +20,6 @@ class WebUI:
         run(host=self.ip, port=8080)
 
     def index(self, toiminto=""):
-        tpl = SimpleTemplate(name='views/index.tpl')
-
         sivu = ""
 
         if toiminto == "tunnistautuminen_epaonnistui":
@@ -33,7 +30,7 @@ class WebUI:
 
         sivu += "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
-        return tpl.render(content=sivu)
+        return template("index", content=sivu)
 
     def tunnistautuminen(self, laite, toiminto):
         return "<form action='/" + laite + "/" + toiminto + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
@@ -81,7 +78,7 @@ class WebUI:
             return False
 
     def tieto_sivu(self):
-        return "Tasta tulee tietosivu"
+        return template("index", "Tasta tulee tietosivu")
 
     def onnistuuko_tunnistautuminen(self, kayttajatunnus, salasana):
         if (kayttajatunnus == "Admin" and salasana=="1234"):

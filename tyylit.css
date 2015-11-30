@@ -6,6 +6,11 @@ body {
     background-color: #F7F7F7;
 }
 
+.header {
+    width: 1024px;
+    border: 1px solid black;
+}
+
 .navigation {
     font-size: small;
     background-color: lightgrey;
