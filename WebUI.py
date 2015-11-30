@@ -1,5 +1,5 @@
 import time
-from bottle import route, run, redirect, request, template, TEMPLATE_PATH
+from bottle import route, run, redirect, request, template, SimpleTemplate
 import os
 
 class WebUI:
@@ -21,6 +21,8 @@ class WebUI:
         run(host=self.ip, port=8080)
 
     def index(self, toiminto=""):
+        tpl = SimpleTemplate(name='views/index.tpl')
+
         sivu = ""
 
         if toiminto == "tunnistautuminen_epaonnistui":
@@ -31,7 +33,7 @@ class WebUI:
 
         sivu += "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
-        return template("index", content=sivu)
+        return tpl.render(content=sivu)
 
     def tunnistautuminen(self, laite, toiminto):
         return "<form action='/" + laite + "/" + toiminto + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
