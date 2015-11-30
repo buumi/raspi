@@ -11,7 +11,7 @@ class WebUI:
 
     def _route(self):
         route('/', method="GET", callback=self.index)
-        route("tyylit.css", callback=self.tyylit)
+        route("/tyylit.css", callback=self.tyylit)
         route('/<toiminto>', method="GET", callback=self.index)
         route('/tunnistautuminen/<laite>/<toiminto>', method="GET", callback=self.tunnistautuminen)
         route('/<laite>/<toiminto>', method="POST", callback=self.aseta_anturin_ohjaus)
