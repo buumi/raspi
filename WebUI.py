@@ -34,7 +34,7 @@ class WebUI:
         return template("index", content=sivu)
 
     def tyylit(self):
-        return static_file("tyylit.css", root=".")
+        return static_file("tyylit.css", root="/")
 
     def tunnistautuminen(self, laite, toiminto):
         return template("index", content="<form action='/" + laite + "/" + toiminto + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>")
