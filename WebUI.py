@@ -28,8 +28,8 @@ class WebUI:
         uusi_tila_valoanturi = not self.valoanturi.anna_ohjaus_tila()
         uusi_tila_lampomittari = not self.lampomittari.anna_ohjaus_tila()
 
-        teksti_valoanturi = "Paalla" if uusi_tila_valoanturi == True else "Pois paalta"
-        teksti_lampomittari = "Paalla" if uusi_tila_lampomittari == True else "Pois paalta"
+        teksti_valoanturi = "Paalla" if uusi_tila_valoanturi == False else "Pois paalta"
+        teksti_lampomittari = "Paalla" if uusi_tila_lampomittari == False else "Pois paalta"
 
         sivu += "Valoanturi ohjaa laitetta: " + teksti_valoanturi + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + teksti_lampomittari + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
