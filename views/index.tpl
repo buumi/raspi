@@ -20,7 +20,7 @@
                 </td>
 
                 <td class="sivu">
-                    <p>{!content}</p>
+                    <p>{{!content}}</p>
                 </td>
             </tr>
         </table>
