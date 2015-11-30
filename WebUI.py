@@ -1,5 +1,5 @@
 import time
-from bottle import route, run, redirect, request, template
+from bottle import route, run, redirect, request, template, static_file
 import os
 
 class WebUI:
@@ -11,6 +11,7 @@ class WebUI:
 
     def _route(self):
         route('/', method="GET", callback=self.index)
+        route("tyylit.css", callback=self.tyylit)
         route('/<toiminto>', method="GET", callback=self.index)
         route('/tunnistautuminen/<laite>/<toiminto>', method="GET", callback=self.tunnistautuminen)
         route('/<laite>/<toiminto>', method="POST", callback=self.aseta_anturin_ohjaus)
@@ -31,6 +32,9 @@ class WebUI:
         sivu += "Valoanturi ohjaa laitetta: " + str(self.valoanturi.anna_ohjaus_tila()) + " <a href='tunnistautuminen/valoanturi/" + str(uusi_tila_valoanturi) + "'>Muuta</a><br>"
         sivu += "Lampomittari ohjaa laitetta: " + str(self.lampomittari.anna_ohjaus_tila()) + " <a href='tunnistautuminen/lampomittari/" + str(uusi_tila_lampomittari) + "'>Muuta</a><br>"
         return template("index", content=sivu)
+
+    def tyylit(self):
+        return static_file("tyylit.css", root=".")
 
     def tunnistautuminen(self, laite, toiminto):
         return "<form action='/" + laite + "/" + toiminto + "' method='POST'>Kayttajatunnus: <input type='text' name='kayttajatunnus'><br>Salasana: <input type='password' name='salasana'><br><input type='submit' value='Jatka'>"
