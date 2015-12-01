@@ -8,7 +8,7 @@
     <body>
         <table class="testi">
             <tr class="header">
-                <img src="http://buumi.kapsi.fi/koulu1/cooltext116080650746797.jpgs">
+                <img src="http://buumi.kapsi.fi/koulu1/cooltext116080650746797.jpg">
             </tr>
 
             <tr>
